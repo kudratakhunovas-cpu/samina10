@@ -1,0 +1,57 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оформление заявки | SIVVA SHOP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="order">
+
+<header>
+  <a class="logo" href="index.html">SIVVA<small>PREMIUM SHOES</small></a>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="catalog.html">Каталог</a>
+    <a href="sneakers.html">Кроссовки</a>
+    <a href="heels.html">Туфли</a>
+    <a href="boots.html">Ботинки</a>
+    <a href="favorites.html">Избранное</a>
+    <a href="cart.html">Корзина</a>
+    <a href="about.html">О нас</a>
+  </nav>
+</header>
+
+<section class="section">
+  <p class="eyebrow">Almost yours</p>
+  <h1>Оформление заявки</h1>
+  <p class="muted section-intro">
+    Заполни данные для заявки. В учебной версии
+    данные никуда не отправляются.
+  </p>
+
+  <form id="orderForm" class="form-box">
+    <label for="customerName">Имя</label>
+    <input id="customerName" type="text" placeholder="Твоё имя" required>
+
+    <label for="customerPhone">Номер телефона</label>
+    <input id="customerPhone" type="tel" placeholder="+996 ..." required>
+
+    <label for="customerAddress">Город и адрес доставки</label>
+    <textarea id="customerAddress" rows="3"
+      placeholder="Например, Бишкек..." required></textarea>
+
+    <label for="customerComment">Комментарий (необязательно)</label>
+    <textarea id="customerComment" rows="2"
+      placeholder="Размер, цвет и пожелания"></textarea>
+
+    <button type="submit">Подтвердить заявку</button>
+  </form>
+</section>
+
+<footer>SIVVA SHOP · PREMIUM SHOES · KYRGYZSTAN</footer>
+<script src="script.js"></script>
+</body>
+</html>
