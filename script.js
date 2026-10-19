@@ -1,108 +1,38 @@
 
 const products = [
-  {
-    id: 1,
-    title: "Classic Leather Sneakers",
-    category: "sneakers",
-    price: 12500,
-    image: "images/shoe1.jpg",
-    description: "Кожаные кроссовки в минималистичном стиле."
-  },
-  {
-    id: 2,
-    title: "Street Luxury Sneakers",
-    category: "sneakers",
-    price: 15800,
-    image: "images/shoe2.jpg",
-    description: "Премиальные кроссовки для городских образов."
-  },
-  {
-    id: 3,
-    title: "White Premium Sneakers",
-    category: "sneakers",
-    price: 13900,
-    image: "images/shoe3.jpg",
-    description: "Белые кроссовки с лаконичным дизайном."
-  },
-  {
-    id: 4,
-    title: "Elegant Heel Shoes",
-    category: "heels",
-    price: 11200,
-    image: "images/shoe4.jpg",
-    description: "Элегантные туфли для особых случаев."
-  },
-  {
-    id: 5,
-    title: "Black Classic Heels",
-    category: "heels",
-    price: 9800,
-    image: "images/shoe5.jpg",
-    description: "Классические чёрные туфли."
-  },
-  {
-    id: 6,
-    title: "Evening Luxury Heels",
-    category: "heels",
-    price: 14500,
-    image: "images/shoe6.jpg",
-    description: "Вечерняя модель с выразительным силуэтом."
-  },
-  {
-    id: 7,
-    title: "Leather Ankle Boots",
-    category: "boots",
-    price: 16900,
-    image: "images/shoe7.jpg",
-    description: "Кожаные ботинки на каждый день."
-  },
-  {
-    id: 8,
-    title: "Winter Premium Boots",
-    category: "boots",
-    price: 18500,
-    image: "images/shoe8.jpg",
-    description: "Стильные ботинки для прохладной погоды."
-  },
-  {
-    id: 9,
-    title: "Tall Elegant Boots",
-    category: "boots",
-    price: 21900,
-    image: "images/shoe9.jpg",
-    description: "Высокие сапоги с элегантным силуэтом."
-  },
-  {
-    id: 10,
-    title: "Limited Edition Sneakers",
-    category: "sneakers",
-    price: 24500,
-    image: "images/shoe10.jpg",
-    description: "Выразительная модель из премиальной подборки."
-  }
+  { id: 1, title: "Classic Leather Sneakers", category: "sneakers", price: 12500, image: "images/shoe1.jpg", description: "Кожаные кроссовки в минималистичном стиле." },
+  { id: 2, title: "Street Luxury Sneakers", category: "sneakers", price: 15800, image: "images/shoe2.jpg", description: "Премиальные кроссовки для городских образов." },
+  { id: 3, title: "White Premium Sneakers", category: "sneakers", price: 13900, image: "images/shoe3.jpg", description: "Белые кроссовки с лаконичным дизайном." },
+  { id: 4, title: "Elegant Heel Shoes", category: "heels", price: 11200, image: "images/shoe4.jpg", description: "Элегантные туфли для особых случаев." },
+  { id: 5, title: "Black Classic Heels", category: "heels", price: 9800, image: "images/shoe5.jpg", description: "Классические чёрные туфли." },
+  { id: 6, title: "Evening Luxury Heels", category: "heels", price: 14500, image: "images/shoe6.jpg", description: "Вечерняя модель с выразительным силуэтом." },
+  { id: 7, title: "Leather Ankle Boots", category: "boots", price: 16900, image: "images/shoe7.jpg", description: "Кожаные ботинки на каждый день." },
+  { id: 8, title: "Winter Premium Boots", category: "boots", price: 18500, image: "images/shoe8.jpg", description: "Стильные ботинки для прохладной погоды." },
+  { id: 9, title: "Tall Elegant Boots", category: "boots", price: 21900, image: "images/shoe9.jpg", description: "Высокие сапоги с элегантным силуэтом." },
+  { id: 10, title: "Limited Edition Sneakers", category: "sneakers", price: 24500, image: "images/shoe10.jpg", description: "Выразительная модель из премиальной подборки." }
 ];
 
 
-// Форматирование цены
 function formatPrice(price) {
   return price.toLocaleString("ru-RU") + " сом";
 }
 
-
-// Получение корзины
+// Работа с корзиночкой
 function getCart() {
   let cart = localStorage.getItem("sivvaCart");
   return cart ? JSON.parse(cart) : [];
 }
 
-
-// Сохранение корзины
 function saveCart(cart) {
   localStorage.setItem("sivvaCart", JSON.stringify(cart));
 }
 
 
-// Создание карточки товара с фотографией
+function getFavorites() {
+  return JSON.parse(localStorage.getItem("sivvaFavorites") || "[]");
+}
+
+
 function productCard(product) {
   return `
     <div class="product-card">
@@ -112,27 +42,14 @@ function productCard(product) {
         loading="lazy"
         onerror="this.onerror=null;this.src='https://placehold.co/600x500/e8dece/354638?text=SIVVA+SHOP'"
       >
-
       <div class="product-info">
         <h3>${product.title}</h3>
-
         <p class="muted">${product.description}</p>
-
-        <div class="price">
-          ${formatPrice(product.price)}
-        </div>
-
-        <button onclick="addToCart(${product.id})">
-          В корзину
-        </button>
-
-        <button
-          class="secondary"
-          onclick="addToFavorites(${product.id})"
-        >
+        <div class="price">${formatPrice(product.price)}</div>
+        <button onclick="addToCart(${product.id})">В корзину</button>
+        <button class="secondary" onclick="addToFavorites(${product.id})">
           ♡ Избранное
         </button>
-
         <p>
           <a href="product.html?id=${product.id}">
             Подробнее о товаре →
@@ -144,20 +61,14 @@ function productCard(product) {
 }
 
 
-// Вывод карточек товаров на страницу
 function renderProducts(list) {
   let element = document.getElementById("productList");
-
   if (!element) return;
-
   element.innerHTML = list.map(productCard).join("");
 }
 
-
-// Добавление в корзину
 function addToCart(id) {
   let product = products.find(item => item.id === id);
-
   if (!product) return;
 
   let cart = getCart();
@@ -166,79 +77,56 @@ function addToCart(id) {
   if (cartItem) {
     cartItem.quantity += 1;
   } else {
-    cart.push({
-      id: product.id,
-      quantity: 1
-    });
+    cart.push({ id: product.id, quantity: 1 });
   }
 
   saveCart(cart);
   alert("Товар добавлен в корзину!");
 }
 
-
-// Добавление в избранное
 function addToFavorites(id) {
-  let favorites = JSON.parse(
-    localStorage.getItem("sivvaFavorites") || "[]"
-  );
+  let favorites = getFavorites();
 
   if (favorites.includes(id)) {
     alert("Этот товар уже в избранном.");
   } else {
     favorites.push(id);
-
-    localStorage.setItem(
-      "sivvaFavorites",
-      JSON.stringify(favorites)
-    );
-
+    localStorage.setItem("sivvaFavorites", JSON.stringify(favorites));
     alert("Товар добавлен в избранное!");
   }
 }
 
 
-// Фильтрация каталога по категории
 function showCatalog(category) {
   let list = products;
 
   if (category !== "all") {
-    list = products.filter(
-      product => product.category === category
-    );
+    list = products.filter(product => product.category === category);
   }
 
   renderProducts(list);
 }
 
 
-// Отображение корзины
 function showCart() {
   let cart = getCart();
-
   let cartElement = document.getElementById("cartItems");
   let totalElement = document.getElementById("cartTotal");
 
   if (!cartElement || !totalElement) return;
 
   cartElement.innerHTML = "";
-
   let total = 0;
 
   if (cart.length === 0) {
-    cartElement.innerHTML =
-      "<p class='muted'>Корзина пока пуста.</p>";
+    cartElement.innerHTML = "<p class='muted'>Корзина пока пуста.</p>";
   }
 
   cart.forEach(cartItem => {
-    let product = products.find(
-      item => item.id === cartItem.id
-    );
-
+    let product = products.find(item => item.id === cartItem.id);
     if (!product) return;
 
     let sum = product.price * cartItem.quantity;
-
     total += sum;
 
     cartElement.innerHTML += `
@@ -249,13 +137,8 @@ function showCart() {
             ${formatPrice(product.price)} × ${cartItem.quantity}
           </span>
         </div>
-
         <b>${formatPrice(sum)}</b>
-
-        <button
-          class="secondary"
-          onclick="removeFromCart(${product.id})"
-        >
+        <button class="secondary" onclick="removeFromCart(${product.id})">
           Удалить
         </button>
       </div>
@@ -266,45 +149,32 @@ function showCart() {
 }
 
 
-// Удаление товара из корзины
 function removeFromCart(id) {
   let cart = getCart();
-
   cart = cart.filter(item => item.id !== id);
-
   saveCart(cart);
   showCart();
 }
 
 
-// Отображение избранного
 function showFavorites() {
-  let favorites = JSON.parse(
-    localStorage.getItem("sivvaFavorites") || "[]"
-  );
-
-  let favoriteProducts = products.filter(
-    product => favorites.includes(product.id)
-  );
-
+  let favorites = getFavorites();
+  let favoriteProducts = products.filter(product => favorites.includes(product.id));
   let element = document.getElementById("productList");
 
   if (!element) return;
 
   if (favoriteProducts.length === 0) {
-    element.innerHTML =
-      "<p class='muted'>Пока нет избранных товаров.</p>";
+    element.innerHTML = "<p class='muted'>Пока нет избранных товаров.</p>";
   } else {
     renderProducts(favoriteProducts);
   }
 }
 
 
-// Отображение отдельного товара
 function showOneProduct() {
   let params = new URLSearchParams(window.location.search);
   let id = Number(params.get("id")) || 1;
-
   let product = products.find(item => item.id === id);
   let element = document.getElementById("oneProduct");
 
@@ -320,20 +190,13 @@ function showOneProduct() {
           onerror="this.onerror=null;this.src='https://placehold.co/600x500/e8dece/354638?text=SIVVA+SHOP'"
         >
       </div>
-
       <div>
         <h1>${product.title}</h1>
-
         <p class="muted">${product.description}</p>
-
-        <h2 class="price">
-          ${formatPrice(product.price)}
-        </h2>
-
+        <h2 class="price">${formatPrice(product.price)}</h2>
         <p class="muted">
           Уточните доступный размер и наличие перед покупкой.
         </p>
-
         <button onclick="addToCart(${product.id})">
           Добавить в корзину
         </button>
@@ -343,27 +206,67 @@ function showOneProduct() {
 }
 
 
-// Оформление заказа
+
+const fioRegex =
+  /^[А-ЯЁа-яёA-Za-z]+(?:[-'][А-ЯЁа-яёA-Za-z]+)*(?:\s+[А-ЯЁа-яёA-Za-z]+(?:[-'][А-ЯЁа-яёA-Za-z]+)*){1,2}$/;
+
+
+const phoneRegex = /^\+996\d{9}$/;
+
+
+const emailRegex =
+  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+
 function submitOrder(event) {
   event.preventDefault();
 
-  let name = document.getElementById("customerName").value.trim();
-  let phone = document.getElementById("customerPhone").value.trim();
-  let address = document.getElementById("customerAddress").value.trim();
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const emailElement = document.getElementById("customerEmail");
+
+  const email = emailElement ? emailElement.value.trim() : "";
+
 
   if (getCart().length === 0) {
     alert("Сначала добавьте товар в корзину.");
     return;
   }
 
-  if (name === "" || phone === "" || address === "") {
-    alert("Пожалуйста, заполните все поля.");
+
+  if (!fioRegex.test(name)) {
+    alert("Введите корректное ФИО: фамилию и имя.");
+    return;
+  }
+
+ 
+  const cleanPhone = phone.replace(/[\s()-]/g, "");
+
+
+  if (!phoneRegex.test(cleanPhone)) {
+    alert("Введите номер Кыргызстана в формате +996555123456.");
+    return;
+  }
+
+
+  if (!emailRegex.test(email)) {
+    alert("Введите корректный адрес электронной почты.");
+    return;
+  }
+
+  
+  if (address === "") {
+    alert("Введите адрес доставки.");
     return;
   }
 
   alert(
     "Спасибо, " + name +
-    "! Это демонстрационная заявка. Телефон: " + phone
+    "! Ваша заявка оформлена.\n" +
+    "Телефон: " + cleanPhone +
+    "\nEmail: " + email
   );
 
   saveCart([]);
@@ -371,7 +274,7 @@ function submitOrder(event) {
 }
 
 
-// Запуск функций после загрузки HTML
+
 document.addEventListener("DOMContentLoaded", function() {
   let page = document.body.dataset.page;
 
